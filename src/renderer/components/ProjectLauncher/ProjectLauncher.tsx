@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../../contexts/ThemeContext';
 import './ProjectLauncher.css';
 
 function ProjectLauncher() {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   const handleSelectProject = async () => {
     const folderPath = await (window as any).electron.ipcRenderer.selectDirectory();
@@ -14,6 +16,13 @@ function ProjectLauncher() {
 
   return (
     <div className="launcher-container">
+      <button
+        type="button"
+        onClick={toggleTheme}
+        className="theme-toggle-button"
+      >
+        {theme === 'dark' ? 'ライトモード' : 'ダークモード'}
+      </button>
       <h1>Novelaid Editor</h1>
       <p>作業フォルダーを選択して開始してください</p>
       <button

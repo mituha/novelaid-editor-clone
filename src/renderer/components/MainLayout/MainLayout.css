@@ -1,45 +1,49 @@
 .layout-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    background-color: #1e1e1e;
-    color: #ffffff;
-    font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: sans-serif;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .layout-header {
-    padding: 10px 20px;
-    background-color: #2d2d2d;
-    border-bottom: 1px solid #3c3c3c;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  padding: 10px 20px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .header-button {
-    padding: 5px 10px;
-    background-color: #444;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  padding: 5px 10px;
+  background-color: var(--button-bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.3s;
 }
 
 .header-button:hover {
-    background-color: #555;
+  background-color: var(--button-bg-secondary-hover);
 }
 
 .layout-main {
-    flex: 1;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .layout-footer {
-    padding: 5px 20px;
-    background-color: #007acc;
-    font-size: 12px;
+  padding: 5px 20px;
+  background-color: var(--button-bg-primary);
+  color: #fff;
+  font-size: 12px;
+  transition: background-color 0.3s;
 }

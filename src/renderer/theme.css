@@ -1,0 +1,29 @@
+:root {
+    /* Default (Dark Theme) */
+    --bg-primary: #1e1e1e;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #ffffff;
+    --button-bg-primary: #007acc;
+    --button-bg-primary-hover: #005999;
+    --button-bg-secondary: #444;
+    --button-bg-secondary-hover: #555;
+    --border-color: #3c3c3c;
+}
+
+[data-theme='light'] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f0f0f0;
+    --text-primary: #333333;
+    --button-bg-primary: #007acc;
+    --button-bg-primary-hover: #005999;
+    --button-bg-secondary: #e0e0e0;
+    --button-bg-secondary-hover: #cccccc;
+    --border-color: #dcdcdc;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    margin: 0;
+    /* Reset some of the default App.css styles on body if needed globally */
+}
