@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
+import './ProjectLauncher.css';
 
-const ProjectLauncher = () => {
+function ProjectLauncher() {
   const navigate = useNavigate();
 
   const handleSelectProject = async () => {
@@ -12,28 +13,18 @@ const ProjectLauncher = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', backgroundColor: '#1e1e1e', color: '#ffffff', fontFamily: 'sans-serif' }}>
+    <div className="launcher-container">
       <h1>Novelaid Editor</h1>
       <p>作業フォルダーを選択して開始してください</p>
       <button
+        type="button"
         onClick={handleSelectProject}
-        style={{
-          padding: '10px 20px',
-          fontSize: '16px',
-          cursor: 'pointer',
-          backgroundColor: '#007acc',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          transition: 'background-color 0.3s'
-        }}
-        onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#005999')}
-        onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#007acc')}
+        className="launcher-button"
       >
         プロジェクトを選択
       </button>
     </div>
   );
-};
+}
 
 export default ProjectLauncher;

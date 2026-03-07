@@ -1,0 +1,25 @@
+.launcher-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  font-family: sans-serif;
+}
+
+.launcher-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.launcher-button:hover {
+  background-color: #005999;
+}
