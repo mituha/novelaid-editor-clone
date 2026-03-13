@@ -9,6 +9,7 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
+import fs from 'fs/promises';
 import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
@@ -24,6 +25,19 @@ ipcMain.handle('select-directory', async () => {
     return null;
   }
   return result.filePaths[0];
+});
+
+ipcMain.handle('list-files', async (_event, directoryPath: string) => {
+  try {
+    const entries = await fs.readdir(directoryPath, { withFileTypes: true });
+    return entries.map((entry) => ({
+      name: entry.name,
+      isDirectory: entry.isDirectory(),
+    }));
+  } catch (error) {
+    console.error('Failed to list files:', error);
+    return [];
+  }
 });
 
 class AppUpdater {

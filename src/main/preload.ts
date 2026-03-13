@@ -22,6 +22,8 @@ const electronHandler = {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
     selectDirectory: () => ipcRenderer.invoke('select-directory'),
+    listFiles: (directoryPath: string) =>
+      ipcRenderer.invoke('list-files', directoryPath),
   },
 };
 

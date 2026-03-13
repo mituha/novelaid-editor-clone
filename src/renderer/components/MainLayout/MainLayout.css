@@ -32,12 +32,30 @@
   background-color: var(--button-bg-secondary-hover);
 }
 
+.layout-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.layout-left-pane {
+  width: 250px;
+  min-width: 150px;
+  background-color: var(--bg-secondary);
+}
+
 .layout-main {
   flex: 1;
   padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow-y: auto;
+  background-color: var(--bg-primary);
+}
+
+.layout-right-pane {
+  width: 250px;
+  min-width: 150px;
+  background-color: var(--bg-secondary);
+  border-left: 1px solid var(--border-color);
 }
 
 .layout-footer {

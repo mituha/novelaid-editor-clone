@@ -1,0 +1,53 @@
+.file-explorer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-right: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.file-explorer-header {
+  padding: 10px 15px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  background-color: var(--bg-primary);
+}
+
+.file-explorer-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 5px 0;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 15px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+.file-item:hover {
+  background-color: var(--bg-hover);
+}
+
+.file-icon {
+  margin-right: 8px;
+  width: 16px;
+  text-align: center;
+}
+
+.file-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.directory .file-name {
+  font-weight: 500;
+}
