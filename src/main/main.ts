@@ -40,6 +40,25 @@ ipcMain.handle('list-files', async (_event, directoryPath: string) => {
   }
 });
 
+ipcMain.handle('read-file', async (_event, filePath: string) => {
+  try {
+    return await fs.readFile(filePath, 'utf-8');
+  } catch (error) {
+    console.error('Failed to read file:', error);
+    throw error;
+  }
+});
+
+ipcMain.handle('write-file', async (_event, filePath: string, content: string) => {
+  try {
+    await fs.writeFile(filePath, content, 'utf-8');
+    return true;
+  } catch (error) {
+    console.error('Failed to write file:', error);
+    throw error;
+  }
+});
+
 class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';

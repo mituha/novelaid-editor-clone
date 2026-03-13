@@ -30,10 +30,20 @@
   cursor: pointer;
   font-size: 0.9rem;
   user-select: none;
+  transition: background-color 0.2s;
 }
 
 .file-item:hover {
   background-color: var(--bg-hover);
+}
+
+.file-item.active {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.file-item.active .file-name {
+  font-weight: 600;
 }
 
 .file-icon {

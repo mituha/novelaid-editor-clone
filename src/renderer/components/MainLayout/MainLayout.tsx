@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
 import FileExplorer from './FileExplorer';
+import Editor from './Editor';
 import './MainLayout.css';
 
 function MainLayout() {
@@ -36,7 +37,7 @@ function MainLayout() {
           <FileExplorer projectPath={projectPath} />
         </aside>
         <main className="layout-main">
-          <h2>エディター画面 (開発中)</h2>
+          <Editor />
         </main>
         <aside className="layout-right-pane">
           {/* 右ペイン（将来用） */}
