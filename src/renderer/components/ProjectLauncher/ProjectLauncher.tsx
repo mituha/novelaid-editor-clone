@@ -1,16 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useProject } from '../../contexts/ProjectContext';
 import './ProjectLauncher.css';
 
 function ProjectLauncher() {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
+  const { openProject } = useProject();
 
   const handleSelectProject = async () => {
-    const folderPath = await (window as any).electron.ipcRenderer.selectDirectory();
+    const explorer = (window as any).electron.ipcRenderer;
+    const folderPath = await explorer.selectDirectory();
     if (folderPath) {
-      // 選択されたパスをステートやナビゲーションで渡す（ここでは簡易的にURLパラメータ/状態として渡す）
-      navigate('/editor', { state: { projectPath: folderPath } });
+      await openProject(folderPath);
+      navigate('/editor');
     }
   };
 

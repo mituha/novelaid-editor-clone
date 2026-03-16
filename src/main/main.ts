@@ -16,6 +16,55 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
+const ensureDir = async (dirPath: string) => {
+  try {
+    await fs.mkdir(dirPath, { recursive: true });
+  } catch (error) {
+    if ((error as any).code !== 'EEXIST') throw error;
+  }
+};
+
+ipcMain.handle('get-app-path', (_event, name: string) => {
+  if (name === 'userData') return app.getPath('userData');
+  if (name === 'home') return app.getPath('home');
+  return null;
+});
+
+ipcMain.handle('ensure-dir', async (_event, directoryPath: string) => {
+  try {
+    await ensureDir(directoryPath);
+    return true;
+  } catch (error) {
+    console.error('Failed to ensure directory:', error);
+    throw error;
+  }
+});
+
+ipcMain.handle('read-json', async (_event, filePath: string) => {
+  try {
+    const content = await fs.readFile(filePath, 'utf-8');
+    return JSON.parse(content);
+  } catch (error) {
+    if ((error as any).code === 'ENOENT') return null;
+    console.error('Failed to read JSON:', error);
+    throw error;
+  }
+});
+
+ipcMain.handle(
+  'write-json',
+  async (_event, filePath: string, data: any, indent = 2) => {
+    try {
+      await ensureDir(path.dirname(filePath));
+      await fs.writeFile(filePath, JSON.stringify(data, null, indent), 'utf-8');
+      return true;
+    } catch (error) {
+      console.error('Failed to write JSON:', error);
+      throw error;
+    }
+  },
+);
+
 ipcMain.handle('select-directory', async () => {
   if (!mainWindow) return null;
   const result = await dialog.showOpenDialog(mainWindow, {

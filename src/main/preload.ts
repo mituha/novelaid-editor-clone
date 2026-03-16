@@ -27,6 +27,12 @@ const electronHandler = {
     readFile: (filePath: string) => ipcRenderer.invoke('read-file', filePath),
     writeFile: (filePath: string, content: string) =>
       ipcRenderer.invoke('write-file', filePath, content),
+    getAppPath: (name: string) => ipcRenderer.invoke('get-app-path', name),
+    ensureDir: (directoryPath: string) =>
+      ipcRenderer.invoke('ensure-dir', directoryPath),
+    readJson: (filePath: string) => ipcRenderer.invoke('read-json', filePath),
+    writeJson: (filePath: string, data: any) =>
+      ipcRenderer.invoke('write-json', filePath, data),
   },
 };
 

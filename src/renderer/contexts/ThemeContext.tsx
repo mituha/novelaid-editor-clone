@@ -7,6 +7,8 @@ import {
   useMemo,
 } from 'react';
 
+import { useApp } from './AppContext';
+
 type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
@@ -17,23 +19,23 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
+  const { settings, updateSettings, isLoaded } = useApp();
   const [theme, setTheme] = useState<Theme>('dark');
 
   useEffect(() => {
-    // Optionally we can read from localStorage here. For now, default to 'dark'
-    const savedTheme = localStorage.getItem('theme') as Theme | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
+    if (isLoaded && settings.theme) {
+      setTheme(settings.theme);
     }
-  }, []);
+  }, [isLoaded, settings.theme]);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    updateSettings({ theme: newTheme });
   };
 
   const value = useMemo(() => ({ theme, toggleTheme }), [theme]);

@@ -1,19 +1,24 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useProject } from '../../contexts/ProjectContext';
 import FileExplorer from './FileExplorer';
 import Editor from './Editor';
 import './MainLayout.css';
 
 function MainLayout() {
-  const location = useLocation();
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
-  const projectPath = (location.state as any)?.projectPath || '';
+  const { projectPath } = useProject();
+
+  if (!projectPath) {
+    navigate('/');
+    return null;
+  }
 
   return (
     <div className="layout-container">
       <header className="layout-header">
-        <span>Novelaid Editor - {projectPath || 'プロジェクト未選択'}</span>
+        <span>Novelaid Editor - {projectPath}</span>
         <div>
           <button
             type="button"
