@@ -61,3 +61,28 @@
 .directory .file-name {
   font-weight: 500;
 }
+
+/* Document Type Colors */
+.type-novel .file-icon {
+  color: #ff9800; /* Orange for novel */
+}
+
+.type-markdown .file-icon {
+  color: #03a9f4; /* Light Blue for markdown / settings */
+}
+
+.type-image .file-icon {
+  color: #4caf50; /* Green for images */
+}
+
+.type-chat .file-icon {
+  color: #e91e63; /* Pink for chat */
+}
+
+.type-css .file-icon {
+  color: #9c27b0; /* Purple for CSS */
+}
+
+.file-item.active .file-icon {
+  color: white; /* Contrast in active state */
+}

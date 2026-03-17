@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useFile } from '../../contexts/FileContext';
+import { getDocumentType } from '../../utils/documentType';
+import { DocumentType } from '../../types/document';
 import './FileExplorer.css';
 
 interface FileEntry {
@@ -14,6 +16,11 @@ interface FileExplorerProps {
 function FileExplorer({ projectPath }: FileExplorerProps) {
   const [files, setFiles] = useState<FileEntry[]>([]);
   const { selectFile, currentFilePath } = useFile();
+
+  const currentDirType = useMemo<DocumentType>(() => {
+    // 暫定的にルートフォルダーは 'novel' とする。仕様に基づき親フォルダーから継承する仕組み。
+    return 'novel';
+  }, []);
 
   useEffect(() => {
     const fetchFiles = async () => {
@@ -33,6 +40,36 @@ function FileExplorer({ projectPath }: FileExplorerProps) {
     }
   };
 
+  const getIcon = (type: DocumentType, isDirectory: boolean) => {
+    if (isDirectory) {
+      switch (type) {
+        case 'novel':
+          return '📁';
+        case 'markdown':
+          return '⚙️';
+        case 'image':
+          return '🖼️';
+        default:
+          return '📁';
+      }
+    }
+
+    switch (type) {
+      case 'novel':
+        return '📖';
+      case 'markdown':
+        return '📝';
+      case 'image':
+        return '🖼️';
+      case 'chat':
+        return '💬';
+      case 'css':
+        return '🎨';
+      default:
+        return '📄';
+    }
+  };
+
   return (
     <div className="file-explorer">
       <div className="file-explorer-header">PROJECT</div>
@@ -40,10 +77,15 @@ function FileExplorer({ projectPath }: FileExplorerProps) {
         {files.map((file) => {
           const fullPath = `${projectPath}/${file.name}`;
           const isActive = currentFilePath === fullPath;
+          const docType = getDocumentType(
+            file.name,
+            file.isDirectory,
+            currentDirType,
+          );
           return (
             <div
               key={file.name}
-              className={`file-item ${file.isDirectory ? 'directory' : 'file'} ${isActive ? 'active' : ''}`}
+              className={`file-item ${file.isDirectory ? 'directory' : 'file'} ${isActive ? 'active' : ''} type-${docType}`}
               onClick={() => handleFileClick(file)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -54,7 +96,7 @@ function FileExplorer({ projectPath }: FileExplorerProps) {
               tabIndex={0}
             >
               <span className="file-icon">
-                {file.isDirectory ? '📁' : '📄'}
+                {getIcon(docType, file.isDirectory)}
               </span>
               <span className="file-name">{file.name}</span>
             </div>
