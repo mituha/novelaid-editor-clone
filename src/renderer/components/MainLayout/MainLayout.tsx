@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { Sun, Moon, X } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useProject } from '../../contexts/ProjectContext';
 import FileExplorer from './FileExplorer';
@@ -19,21 +20,22 @@ function MainLayout() {
     <div className="layout-container">
       <header className="layout-header">
         <span>Novelaid Editor - {projectPath}</span>
-        <div>
+        <div className="header-actions">
           <button
             type="button"
             onClick={toggleTheme}
-            className="header-button"
-            style={{ marginRight: '10px' }}
+            className="header-button theme-toggle"
+            aria-label="Toggle theme"
           >
-            {theme === 'dark' ? '☀ Light' : '🌙 Dark'}
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <button
             type="button"
             onClick={() => navigate('/')}
-            className="header-button"
+            className="header-button close-button"
+            aria-label="Close project"
           >
-            閉じる
+            <X size={18} />
           </button>
         </div>
       </header>

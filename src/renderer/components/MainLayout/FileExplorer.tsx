@@ -1,4 +1,16 @@
 import { useState, useEffect, useMemo } from 'react';
+import {
+  Folder,
+  BookOpen,
+  Settings,
+  FileText,
+  Image,
+  MessageSquareText,
+  Palette,
+  GitCompare,
+  Globe,
+  File,
+} from 'lucide-react';
 import { useFile } from '../../contexts/FileContext';
 import { getDocumentType } from '../../utils/documentType';
 import { DocumentType } from '../../types/document';
@@ -41,32 +53,38 @@ function FileExplorer({ projectPath }: FileExplorerProps) {
   };
 
   const getIcon = (type: DocumentType, isDirectory: boolean) => {
+    const iconSize = 16;
+
     if (isDirectory) {
       switch (type) {
         case 'novel':
-          return '📁';
+          return <Folder size={iconSize} />;
         case 'markdown':
-          return '⚙️';
+          return <Settings size={iconSize} />;
         case 'image':
-          return '🖼️';
+          return <Image size={iconSize} />;
         default:
-          return '📁';
+          return <Folder size={iconSize} />;
       }
     }
 
     switch (type) {
       case 'novel':
-        return '📖';
+        return <BookOpen size={iconSize} />;
       case 'markdown':
-        return '📝';
+        return <FileText size={iconSize} />;
       case 'image':
-        return '🖼️';
+        return <Image size={iconSize} />;
       case 'chat':
-        return '💬';
+        return <MessageSquareText size={iconSize} />;
       case 'css':
-        return '🎨';
+        return <Palette size={iconSize} />;
+      case 'git-diff':
+        return <GitCompare size={iconSize} />;
+      case 'browser':
+        return <Globe size={iconSize} />;
       default:
-        return '📄';
+        return <File size={iconSize} />;
     }
   };
 
