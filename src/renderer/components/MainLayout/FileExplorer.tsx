@@ -1,16 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import {
-  Folder,
-  BookOpen,
-  Settings,
-  FileText,
-  Image,
-  MessageSquareText,
-  Palette,
-  GitCompare,
-  Globe,
-  File,
-} from 'lucide-react';
+import DocumentIcon from '../DocumentIcon/DocumentIcon';
 import { useFile } from '../../contexts/FileContext';
 import { getDocumentType } from '../../utils/documentType';
 import { DocumentType } from '../../types/document';
@@ -52,42 +41,6 @@ function FileExplorer({ projectPath }: FileExplorerProps) {
     }
   };
 
-  const getIcon = (type: DocumentType, isDirectory: boolean) => {
-    const iconSize = 16;
-
-    if (isDirectory) {
-      switch (type) {
-        case 'novel':
-          return <Folder size={iconSize} />;
-        case 'markdown':
-          return <Settings size={iconSize} />;
-        case 'image':
-          return <Image size={iconSize} />;
-        default:
-          return <Folder size={iconSize} />;
-      }
-    }
-
-    switch (type) {
-      case 'novel':
-        return <BookOpen size={iconSize} />;
-      case 'markdown':
-        return <FileText size={iconSize} />;
-      case 'image':
-        return <Image size={iconSize} />;
-      case 'chat':
-        return <MessageSquareText size={iconSize} />;
-      case 'css':
-        return <Palette size={iconSize} />;
-      case 'git-diff':
-        return <GitCompare size={iconSize} />;
-      case 'browser':
-        return <Globe size={iconSize} />;
-      default:
-        return <File size={iconSize} />;
-    }
-  };
-
   return (
     <div className="file-explorer">
       <div className="file-explorer-header">PROJECT</div>
@@ -114,7 +67,11 @@ function FileExplorer({ projectPath }: FileExplorerProps) {
               tabIndex={0}
             >
               <span className="file-icon">
-                {getIcon(docType, file.isDirectory)}
+                <DocumentIcon
+                  type={docType}
+                  isDirectory={file.isDirectory}
+                  size={16}
+                />
               </span>
               <span className="file-name">{file.name}</span>
             </div>
