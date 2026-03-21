@@ -33,6 +33,9 @@ const electronHandler = {
     readJson: (filePath: string) => ipcRenderer.invoke('read-json', filePath),
     writeJson: (filePath: string, data: any) =>
       ipcRenderer.invoke('write-json', filePath, data),
+    setProjectDirectory: (path: string) =>
+      ipcRenderer.invoke('fs:setProjectDirectory', path),
+    getProjectDirectory: () => ipcRenderer.invoke('fs:getProjectDirectory'),
   },
 };
 

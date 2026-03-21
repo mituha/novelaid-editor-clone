@@ -108,6 +108,15 @@ ipcMain.handle('write-file', async (_event, filePath: string, content: string) =
   }
 });
 
+ipcMain.handle('fs:setProjectDirectory', (_event, path: string) => {
+  projectDirectory = path;
+  return true;
+});
+
+ipcMain.handle('fs:getProjectDirectory', () => {
+  return projectDirectory;
+});
+
 class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -117,6 +126,7 @@ class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
+let projectDirectory: string | null = null;
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
