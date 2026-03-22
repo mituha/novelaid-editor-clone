@@ -11,10 +11,10 @@ import {
   Globe,
   File,
 } from 'lucide-react';
-import { DocumentType } from '../../types/document';
+import { NovelaidDocumentType } from '../../types/document';
 
 interface DocumentIconProps {
-  type: DocumentType;
+  type: NovelaidDocumentType;
   isDirectory: boolean;
   size?: number;
   className?: string;

@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import DocumentIcon from '../DocumentIcon/DocumentIcon';
 import { useFile } from '../../contexts/FileContext';
 import { getDocumentType } from '../../utils/documentType';
-import { DocumentType } from '../../types/document';
+import { NovelaidDocumentType } from '../../types/document';
 import './FileExplorer.css';
 
 interface FileEntry {
@@ -18,7 +18,7 @@ function FileExplorer({ projectPath }: FileExplorerProps) {
   const [files, setFiles] = useState<FileEntry[]>([]);
   const { selectFile, currentFilePath } = useFile();
 
-  const currentDirType = useMemo<DocumentType>(() => {
+  const currentDirType = useMemo<NovelaidDocumentType>(() => {
     // 暫定的にルートフォルダーは 'novel' とする。仕様に基づき親フォルダーから継承する仕組み。
     return 'novel';
   }, []);

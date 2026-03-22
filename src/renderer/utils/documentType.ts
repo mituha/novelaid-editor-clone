@@ -1,10 +1,10 @@
-import { DocumentType } from '../types/document';
+import { NovelaidDocumentType } from '../types/document';
 
 export function getDocumentType(
   fileName: string,
   isDirectory: boolean,
-  parentType: DocumentType = 'novel',
-): DocumentType {
+  parentType: NovelaidDocumentType = 'novel',
+): NovelaidDocumentType {
   if (isDirectory) {
     const name = fileName.toLowerCase();
     if (
