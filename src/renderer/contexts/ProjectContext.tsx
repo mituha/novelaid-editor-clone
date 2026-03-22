@@ -19,7 +19,7 @@ interface ProjectContextType {
   session: ProjectSettings;
   state: ProjectSettings;
   openProject: (path: string) => Promise<void>;
-  closeProject: () => void;
+  closeProject: () => Promise<void>;
   updateSettings: (newSettings: Partial<ProjectSettings>) => Promise<void>;
   updateSession: (newSession: Partial<ProjectSettings>) => Promise<void>;
   updateState: (newState: Partial<ProjectSettings>) => Promise<void>;
@@ -63,6 +63,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (isAppLoaded && appSession.lastProjectPath && !projectPath) {
       const path = appSession.lastProjectPath;
+      window.electron.ipcRenderer.setProjectDirectory(path);
       setProjectPath(path);
       loadAll(path);
     }
@@ -70,6 +71,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
 
   const openProject = useCallback(
     async (path: string) => {
+      await window.electron.ipcRenderer.setProjectDirectory(path);
       setProjectPath(path);
       await loadAll(path);
       await updateAppSession({ lastProjectPath: path });
@@ -77,7 +79,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
     [loadAll, updateAppSession],
   );
 
-  const closeProject = useCallback(() => {
+  const closeProject = useCallback(async () => {
     setProjectPath(null);
     setConfig({});
     setSettings({});
@@ -85,6 +87,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
     setState({});
     setIsLoaded(false);
     updateAppSession({ lastProjectPath: null });
+    await window.electron.ipcRenderer.setProjectDirectory(null);
   }, [updateAppSession]);
 
   const updateSettings = useCallback(
