@@ -11,7 +11,7 @@ import {
   Globe,
   File,
 } from 'lucide-react';
-import { NovelaidDocumentType } from '../../types/document';
+import { NovelaidDocumentType } from '../../../novelaid-fs/models';
 
 interface DocumentIconProps {
   type: NovelaidDocumentType;

@@ -1,4 +1,4 @@
-import { NovelaidDocumentType } from '../types/document';
+import { NovelaidDocumentType } from '../../novelaid-fs/models';
 
 export function getDocumentType(
   fileName: string,

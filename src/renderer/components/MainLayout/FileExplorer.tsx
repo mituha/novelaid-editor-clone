@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import DocumentIcon from '../DocumentIcon/DocumentIcon';
 import { useFile } from '../../contexts/FileContext';
 import { getDocumentType } from '../../utils/documentType';
-import { NovelaidDocumentType } from '../../types/document';
+import { NovelaidDocumentType } from '../../../novelaid-fs/models';
 import './FileExplorer.css';
 
 interface FileEntry {
