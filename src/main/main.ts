@@ -15,6 +15,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import * as novelaidFs from '../novelaid-fs/project';
 
 const ensureDir = async (dirPath: string) => {
   try {
@@ -108,13 +109,13 @@ ipcMain.handle('write-file', async (_event, filePath: string, content: string) =
   }
 });
 
-ipcMain.handle('fs:setProjectDirectory', (_event, path: string) => {
-  projectDirectory = path;
+ipcMain.handle('fs:setProjectDirectory', (_event, path: string | null) => {
+  novelaidFs.setProjectDirectory(path);
   return true;
 });
 
 ipcMain.handle('fs:getProjectDirectory', () => {
-  return projectDirectory;
+  return novelaidFs.getProjectDirectory();
 });
 
 class AppUpdater {
@@ -126,7 +127,6 @@ class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
-let projectDirectory: string | null = null;
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;

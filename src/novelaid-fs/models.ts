@@ -1,1 +1,1 @@
-export type NovelaidDocumentType = "novel" | "markdown" | "image" | "chat" | "gitDiff" | "browser" | "css" | "unknown" | "external";
+export type NovelaidDocumentType = "novel" | "markdown" | "image" | "chat" | "git-diff" | "browser" | "css" | "unknown" | "external";

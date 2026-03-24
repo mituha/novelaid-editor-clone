@@ -7,6 +7,7 @@ import React, {
   useMemo,
 } from 'react';
 import { useApp } from './AppContext';
+import { setProjectDirectory as setBackendProjectDirectory } from '../../novelaid-fs';
 
 interface ProjectSettings {
   [key: string]: any;
@@ -63,7 +64,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (isAppLoaded && appSession.lastProjectPath && !projectPath) {
       const path = appSession.lastProjectPath;
-      window.electron.ipcRenderer.setProjectDirectory(path);
+      setBackendProjectDirectory(path);
       setProjectPath(path);
       loadAll(path);
     }
@@ -71,7 +72,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
 
   const openProject = useCallback(
     async (path: string) => {
-      await window.electron.ipcRenderer.setProjectDirectory(path);
+      await setBackendProjectDirectory(path);
       setProjectPath(path);
       await loadAll(path);
       await updateAppSession({ lastProjectPath: path });
@@ -87,7 +88,7 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
     setState({});
     setIsLoaded(false);
     updateAppSession({ lastProjectPath: null });
-    await window.electron.ipcRenderer.setProjectDirectory(null);
+    await setBackendProjectDirectory(null);
   }, [updateAppSession]);
 
   const updateSettings = useCallback(
