@@ -15,7 +15,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import * as novelaidFs from '../novelaid-fs/project';
+import { FileService } from '../novelaid-fs/FileService';
 
 const ensureDir = async (dirPath: string) => {
   try {
@@ -109,13 +109,14 @@ ipcMain.handle('write-file', async (_event, filePath: string, content: string) =
   }
 });
 
+
 ipcMain.handle('fs:setProjectDirectory', (_event, path: string | null) => {
-  novelaidFs.setProjectDirectory(path);
+  FileService.getInstance().setProjectDirectory(path as any);
   return true;
 });
 
 ipcMain.handle('fs:getProjectDirectory', () => {
-  return novelaidFs.getProjectDirectory();
+  return FileService.getInstance().getProjectDirectory();
 });
 
 class AppUpdater {

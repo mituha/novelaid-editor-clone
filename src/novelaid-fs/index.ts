@@ -1,9 +1,11 @@
 export * from './models';
+export * from './FileService';
+import { FileService } from './FileService';
 
-export const setProjectDirectory = (path: string | null): Promise<boolean> => {
-  return window.electron.ipcRenderer.setProjectDirectory(path);
+export const setProjectDirectory = (path: string | null): Promise<void> => {
+  return FileService.getInstance().setProjectDirectory(path as any);
 };
 
 export const getProjectDirectory = (): Promise<string | null> => {
-  return window.electron.ipcRenderer.getProjectDirectory();
+  return FileService.getInstance().getProjectDirectory();
 };

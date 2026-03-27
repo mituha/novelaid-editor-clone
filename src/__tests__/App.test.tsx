@@ -20,6 +20,10 @@ import App from '../renderer/App';
     setProjectDirectory: jest.fn().mockResolvedValue(true),
     getProjectDirectory: jest.fn().mockResolvedValue(null),
   },
+  fs: {
+    setProjectDirectory: jest.fn().mockResolvedValue(true),
+    getProjectDirectory: jest.fn().mockResolvedValue(null),
+  },
 };
 
 describe('App', () => {

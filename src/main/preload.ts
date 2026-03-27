@@ -37,6 +37,11 @@ const electronHandler = {
       ipcRenderer.invoke('fs:setProjectDirectory', path),
     getProjectDirectory: () => ipcRenderer.invoke('fs:getProjectDirectory'),
   },
+  fs: {
+    setProjectDirectory: (path: string | null) =>
+      ipcRenderer.invoke('fs:setProjectDirectory', path),
+    getProjectDirectory: () => ipcRenderer.invoke('fs:getProjectDirectory'),
+  },
 };
 
 contextBridge.exposeInMainWorld('electron', electronHandler);
