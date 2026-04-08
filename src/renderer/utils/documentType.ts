@@ -1,5 +1,11 @@
 import { NovelaidDocumentType } from '../../novelaid-fs';
 
+/**
+ * ドキュメントエリアで表示するViewの種類。
+ */
+export type DocumentViewMode = 'none' | 'editor' | 'canvas' | 'reader' | 'preview';
+
+
 export function getDocumentType(
   fileName: string,
   isDirectory: boolean,
